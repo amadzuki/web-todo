@@ -2,6 +2,11 @@
   box-sizing: border-box;
 }
 
+#todo-container {
+  display: flex;
+  flex-direction: column;
+}
+
 main .todo-text::before {
   content: "+ ";
 }
