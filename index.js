@@ -21,11 +21,14 @@ class Todo {
 }
 
 // FUNCTIONS ----------------------------------------------------------
+// useful assignment
+const todoContainer = document.getElementById("todo-container")
+const newTodoContainer = document.getElementById("new-todo-container")
 
+const setNewElement = tagName => document.createElement(tagName)
 const saveToStorage = () => {
   localStorage.setItem("allTodosData", JSON.stringify(allTodos))
 }
-const setNewElement = tagName => document.createElement(tagName)
 
 // display data from storage
 const displayList = arrayList => {
@@ -37,20 +40,8 @@ const displayList = arrayList => {
     todoContainer.insertBefore(newListContainer, newTodoContainer)
   })
 }
-//---------------------------------------------------------------------
 
-// useful assignment
-const todoContainer = document.getElementById("todo-container")
-const newTodoContainer = document.getElementById("new-todo-container")
-
-// INITIATE
-let allTodos = []
-if (localStorage.getItem("allTodosData") !== null) {
-  const allTodosData = JSON.parse(localStorage.getItem("allTodosData"))
-  allTodos = allTodosData.map(object => new Todo(object))
-  displayList(allTodos)
-}
-
+// create latest ID for new todo object
 const newID = () => {
   if (allTodos.length === 0) {
     firstID = 1
@@ -61,7 +52,6 @@ const newID = () => {
   return newIDValue
 }
 
-/* insert new input element on click */
 const setNewInputBox = function() {
   newInputElement = setNewElement("div")
   newInputElement.setAttribute("class", "todo-list")
@@ -69,10 +59,11 @@ const setNewInputBox = function() {
   newTodoContainer.before(newInputElement, newTodoContainer)
   newInputElement.firstChild.focus()
 }
-newTodoContainer.addEventListener("click", setNewInputBox)
 
-// Add the text into array of objects
 const getText = textBox => {
+  if (textBox.value === "") {
+    return textBox.parentNode.remove()
+  }
   const idValue = newID()
   const newTodo = { id: idValue, text: textBox.value }
   allTodos.push(new Todo(newTodo))
@@ -81,3 +72,16 @@ const getText = textBox => {
   textBox.parentNode.remove()
   displayList([newTodo])
 }
+//---------------------------------------------------------------------
+
+// INITIATE LIST-----------------------------------------------------------
+let allTodos = []
+if (localStorage.getItem("allTodosData") !== null) {
+  const allTodosData = JSON.parse(localStorage.getItem("allTodosData"))
+  allTodos = allTodosData.map(object => new Todo(object))
+  displayList(allTodos)
+}
+//-----------------------------------------------------------------------
+
+// EVENT LISTENER -------------------------------------------------------
+newTodoContainer.addEventListener("click", setNewInputBox)
