@@ -78,4 +78,6 @@ const getText = textBox => {
   allTodos.push(new Todo(newTodo))
   textBox.parentNode.dataset.id = idValue
   saveToStorage()
+  textBox.parentNode.remove()
+  displayList([newTodo])
 }
