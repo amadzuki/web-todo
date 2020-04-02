@@ -6,6 +6,9 @@
   display: flex;
   flex-direction: column;
 }
+#todo-container > div {
+  display: flex;
+}
 
 main .todo-text::before {
   content: "+ ";
