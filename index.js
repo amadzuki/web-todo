@@ -31,8 +31,9 @@ const setNewElement = tagName => document.createElement(tagName)
 const displayList = arrayList => {
   arrayList.map(todo => {
     const newListContainer = setNewElement("div")
+    newListContainer.setAttribute("class", "todo-list")
     newListContainer.setAttribute("data-id", todo.id)
-    newListContainer.innerHTML = `<div class="check-bullet"></div><div>${todo.text}</div>`
+    newListContainer.innerHTML = `<div class="check-bullet"></div><div class="todo-text" tabindex="0">${todo.text}</div>`
     todoContainer.insertBefore(newListContainer, newTodoContainer)
   })
 }
@@ -45,7 +46,7 @@ const newTodoContainer = document.getElementById("new-todo-container")
 // INITIATE
 let allTodos = []
 if (localStorage.getItem("allTodosData") !== null) {
-  allTodosData = JSON.parse(localStorage.getItem("allTodosData"))
+  const allTodosData = JSON.parse(localStorage.getItem("allTodosData"))
   allTodos = allTodosData.map(object => new Todo(object))
   displayList(allTodos)
 }

@@ -8,8 +8,23 @@
 }
 #todo-container > div {
   display: flex;
+  justify-content: start;
+  border-bottom: 1px solid;
 }
 
-main .todo-text::before {
+.check-bullet {
+  padding: 0.4em;
+  border: 2px solid;
+  border-color: #222;
+  border-radius: 50%;
+  /* flex: 6px; */
+}
+
+.todo-text {
+  padding-left: 1em;
+  flex: auto;
+}
+
+main .add-todo::before {
   content: "+ ";
 }
