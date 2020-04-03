@@ -11,12 +11,16 @@ class Todo {
     this.dueDate = date
   }
 
-  isFavorite = boolean => {
-    boolean ? (this.favorite = boolean) : delete this.favorite
+  isFavorite = () => {
+    !this.hasOwnProperty("favorite")
+      ? (this.favorite = true)
+      : delete this.favorite
   }
 
-  isCompleted(boolean) {
-    boolean ? (this.completed = boolean) : delete this.completed
+  isCompleted() {
+    this.hasOwnProperty("compeleted")
+      ? (this.completed = true)
+      : delete this.completed
   }
 }
 
@@ -30,6 +34,15 @@ const saveToStorage = () => {
   localStorage.setItem("allTodosData", JSON.stringify(allTodos))
 }
 
+const favoriteSwitch = function(currentElement) {
+  const currentID = currentElement.parentNode.dataset.id
+  const currentTodo = allTodos.find(todo => todo.id == currentID)
+  currentTodo.isFavorite()
+  currentTodo.favorite
+    ? (currentElement.innerHTML = "&#9733;")
+    : (currentElement.innerHTML = "&#9734;")
+}
+
 // display data from storage
 const displayList = arrayList => {
   arrayList.map(todo => {
@@ -40,6 +53,7 @@ const displayList = arrayList => {
     completedToggle.setAttribute("class", "completed-toggle")
     const favoriteToggle = setNewElement("div")
     favoriteToggle.setAttribute("class", "favorite-toggle")
+    favoriteToggle.setAttribute("onclick", "favoriteSwitch(this)")
     favoriteToggle.innerHTML = "&#9734;"
     newListContainer.innerHTML = `<div class="todo-text" tabindex="0">${todo.text}</div>`
     newListContainer.prepend(completedToggle)

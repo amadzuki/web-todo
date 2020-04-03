@@ -20,6 +20,10 @@
   border-radius: 50%;
 }
 
+.favorite-toggle:hover {
+  cursor: pointer;
+}
+
 .todo-text {
   padding-left: 1em;
   flex: auto;
