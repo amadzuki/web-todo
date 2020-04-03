@@ -12,11 +12,11 @@ class Todo {
   }
 
   isFavorite = boolean => {
-    if (boolean) {
-      this.favorite = boolean
-    } else {
-      delete this.favorite
-    }
+    boolean ? (this.favorite = boolean) : delete this.favorite
+  }
+
+  isCompleted(boolean) {
+    boolean ? (this.completed = boolean) : delete this.completed
   }
 }
 
@@ -36,7 +36,14 @@ const displayList = arrayList => {
     const newListContainer = setNewElement("div")
     newListContainer.setAttribute("class", "todo-list")
     newListContainer.setAttribute("data-id", todo.id)
-    newListContainer.innerHTML = `<div class="check-bullet"></div><div class="todo-text" tabindex="0">${todo.text}</div>`
+    const completedToggle = setNewElement("div")
+    completedToggle.setAttribute("class", "completed-toggle")
+    const favoriteToggle = setNewElement("div")
+    favoriteToggle.setAttribute("class", "favorite-toggle")
+    favoriteToggle.innerHTML = "&#9734;"
+    newListContainer.innerHTML = `<div class="todo-text" tabindex="0">${todo.text}</div>`
+    newListContainer.prepend(completedToggle)
+    newListContainer.append(favoriteToggle)
     todoContainer.insertBefore(newListContainer, newTodoContainer)
   })
 }
