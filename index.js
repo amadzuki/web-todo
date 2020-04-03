@@ -1,3 +1,5 @@
+import seed from "./seed"
+
 class Todo {
   constructor(objectConstructor) {
     Object.assign(this, objectConstructor)
