@@ -43,11 +43,13 @@ const iconSwitcher = function(currentElement) {
   const currentTodo = allTodos.find(todo => todo.id == currentID)
   if (currentElement.className === "completed-toggle") {
     currentTodo.isCompleted()
+    saveToStorage()
     currentTodo.completed
       ? (currentElement.innerHTML = bulletDone)
       : (currentElement.innerHTML = bulletNotDone)
   } else if (currentElement.className === "favorite-toggle") {
     currentTodo.isFavorite()
+    saveToStorage()
     currentTodo.favorite
       ? (currentElement.innerHTML = favoriteOn)
       : (currentElement.innerHTML = favoriteOff)

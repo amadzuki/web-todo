@@ -1,5 +1,34 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto Slab", serif;
+}
+
+nav {
+  display: flex;
+  background-color: rgb(0, 191, 255);
+}
+nav > img {
+  margin: 0.5em;
+  height: 1.85em;
+  filter: drop-shadow(0 0 1em white);
+}
+
+.app-name {
+  font-size: 1.33em;
+  font-weight: bold;
+  margin: 0.5em 1em;
+  color: aliceblue;
+  text-shadow: 1px 1px 3px black;
+  flex: auto;
+}
+.search-bar {
+  align-self: center;
+  padding-right: 0.5em;
+}
+main {
+  margin: 0.5em;
 }
 
 #todo-container {
@@ -24,5 +53,7 @@
 }
 
 main .add-todo::before {
-  content: "+ ";
+  content: "✚";
+  padding-right: 1em;
+  padding-left: 0.15em;
 }
