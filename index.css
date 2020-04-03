@@ -13,14 +13,8 @@
   padding: 0.3em 0;
 }
 
-.completed-toggle {
-  padding: 0.4em;
-  border: 2px solid;
-  border-color: #222;
-  border-radius: 50%;
-}
-
-.favorite-toggle:hover {
+.favorite-toggle:hover,
+.completed-toggle:hover {
   cursor: pointer;
 }
 

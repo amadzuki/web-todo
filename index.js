@@ -18,7 +18,7 @@ class Todo {
   }
 
   isCompleted() {
-    this.hasOwnProperty("compeleted")
+    !this.hasOwnProperty("completed")
       ? (this.completed = true)
       : delete this.completed
   }
@@ -28,19 +28,30 @@ class Todo {
 // useful assignment
 const todoContainer = document.getElementById("todo-container")
 const newTodoContainer = document.getElementById("new-todo-container")
+const favoriteOn = "&#9733;"
+const favoriteOff = "&#9734;"
+const bulletDone = "&#11044;"
+const bulletNotDone = "&#9711;"
 
 const setNewElement = tagName => document.createElement(tagName)
 const saveToStorage = () => {
   localStorage.setItem("allTodosData", JSON.stringify(allTodos))
 }
 
-const favoriteSwitch = function(currentElement) {
+const iconSwitcher = function(currentElement) {
   const currentID = currentElement.parentNode.dataset.id
   const currentTodo = allTodos.find(todo => todo.id == currentID)
-  currentTodo.isFavorite()
-  currentTodo.favorite
-    ? (currentElement.innerHTML = "&#9733;")
-    : (currentElement.innerHTML = "&#9734;")
+  if (currentElement.className === "completed-toggle") {
+    currentTodo.isCompleted()
+    currentTodo.completed
+      ? (currentElement.innerHTML = bulletDone)
+      : (currentElement.innerHTML = bulletNotDone)
+  } else if (currentElement.className === "favorite-toggle") {
+    currentTodo.isFavorite()
+    currentTodo.favorite
+      ? (currentElement.innerHTML = favoriteOn)
+      : (currentElement.innerHTML = favoriteOff)
+  }
 }
 
 // display data from storage
@@ -51,10 +62,16 @@ const displayList = arrayList => {
     newListContainer.setAttribute("data-id", todo.id)
     const completedToggle = setNewElement("div")
     completedToggle.setAttribute("class", "completed-toggle")
+    completedToggle.setAttribute("onclick", "iconSwitcher(this)")
+    todo.completed
+      ? (completedToggle.innerHTML = bulletDone)
+      : (completedToggle.innerHTML = bulletNotDone)
     const favoriteToggle = setNewElement("div")
     favoriteToggle.setAttribute("class", "favorite-toggle")
-    favoriteToggle.setAttribute("onclick", "favoriteSwitch(this)")
-    favoriteToggle.innerHTML = "&#9734;"
+    favoriteToggle.setAttribute("onclick", "iconSwitcher(this)")
+    todo.favorite
+      ? (favoriteToggle.innerHTML = favoriteOn)
+      : (favoriteToggle.innerHTML = favoriteOff)
     newListContainer.innerHTML = `<div class="todo-text" tabindex="0">${todo.text}</div>`
     newListContainer.prepend(completedToggle)
     newListContainer.append(favoriteToggle)
