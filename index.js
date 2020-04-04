@@ -1,5 +1,3 @@
-import seed from "./seed.js"
-
 class Todo {
   constructor(objectConstructor) {
     Object.assign(this, objectConstructor)
@@ -95,7 +93,7 @@ const newID = () => {
 }
 
 const setNewInputBox = function () {
-  newInputElement = setNewElement("div")
+  const newInputElement = setNewElement("div")
   newInputElement.setAttribute("class", "todo-list")
   newInputElement.innerHTML = `<input type="text" onfocusout="getText(this)">`
   newTodoContainer.before(newInputElement, newTodoContainer)
