@@ -1,4 +1,4 @@
-import seed from "./seed"
+import seed from "./seed.js"
 
 class Todo {
   constructor(objectConstructor) {
@@ -9,7 +9,7 @@ class Todo {
     this.text = newText
   }
 
-  setDueDate = date => {
+  setDueDate = (date) => {
     this.dueDate = date
   }
 
@@ -35,14 +35,14 @@ const favoriteOff = "&#9734;"
 const bulletDone = "&#11044;"
 const bulletNotDone = "&#9711;"
 
-const setNewElement = tagName => document.createElement(tagName)
+const setNewElement = (tagName) => document.createElement(tagName)
 const saveToStorage = () => {
   localStorage.setItem("allTodosData", JSON.stringify(allTodos))
 }
 
-const iconSwitcher = function(currentElement) {
+const iconSwitcher = function (currentElement) {
   const currentID = currentElement.parentNode.dataset.id
-  const currentTodo = allTodos.find(todo => todo.id == currentID)
+  const currentTodo = allTodos.find((todo) => todo.id == currentID)
   if (currentElement.className === "completed-toggle") {
     currentTodo.isCompleted()
     saveToStorage()
@@ -59,8 +59,8 @@ const iconSwitcher = function(currentElement) {
 }
 
 // display data from storage
-const displayList = arrayList => {
-  arrayList.map(todo => {
+const displayList = (arrayList) => {
+  arrayList.map((todo) => {
     const newListContainer = setNewElement("div")
     newListContainer.setAttribute("class", "todo-list")
     newListContainer.setAttribute("data-id", todo.id)
@@ -94,7 +94,7 @@ const newID = () => {
   return newIDValue
 }
 
-const setNewInputBox = function() {
+const setNewInputBox = function () {
   newInputElement = setNewElement("div")
   newInputElement.setAttribute("class", "todo-list")
   newInputElement.innerHTML = `<input type="text" onfocusout="getText(this)">`
@@ -102,7 +102,7 @@ const setNewInputBox = function() {
   newInputElement.firstChild.focus()
 }
 
-const getText = textBox => {
+const getText = (textBox) => {
   if (textBox.value === "") {
     return textBox.parentNode.remove()
   }
@@ -120,7 +120,7 @@ const getText = textBox => {
 let allTodos = []
 if (localStorage.getItem("allTodosData") !== null) {
   const allTodosData = JSON.parse(localStorage.getItem("allTodosData"))
-  allTodos = allTodosData.map(object => new Todo(object))
+  allTodos = allTodosData.map((object) => new Todo(object))
   displayList(allTodos)
 }
 //-----------------------------------------------------------------------
