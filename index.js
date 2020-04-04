@@ -95,9 +95,9 @@ const newID = () => {
 const setNewInputBox = function () {
   const newInputElement = setNewElement("div")
   newInputElement.setAttribute("class", "todo-list")
-  newInputElement.innerHTML = `<input type="text" onfocusout="getText(this)">`
+  newInputElement.innerHTML = `${bulletNotDone}<input type="text" onfocusout="getText(this)">`
   newTodoContainer.before(newInputElement, newTodoContainer)
-  newInputElement.firstChild.focus()
+  newInputElement.lastChild.focus()
 }
 
 const getText = (textBox) => {

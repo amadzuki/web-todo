@@ -8,6 +8,8 @@
 nav {
   display: flex;
   background-color: rgb(0, 191, 255);
+  border-bottom: 2px solid;
+  box-shadow: 0 3px 5px;
 }
 nav > img {
   margin: 0.5em;
@@ -22,6 +24,7 @@ nav > img {
   color: aliceblue;
   text-shadow: 1px 1px 3px black;
   flex: auto;
+  white-space: nowrap;
 }
 .search-bar {
   align-self: center;
@@ -56,4 +59,8 @@ main .add-todo::before {
   content: "✚";
   padding-right: 1em;
   padding-left: 0.15em;
+}
+
+#new-todo-container {
+  color: blue;
 }
