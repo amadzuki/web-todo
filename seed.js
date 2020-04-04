@@ -34,3 +34,8 @@ const seed = function () {
   ]
   saveToStorage()
 }
+
+const duplicateData = (duplitimes = 1) => {
+  for (let index = 0; index < duplitimes; index++)
+    allTodos = allTodos.concat(allTodos)
+}
