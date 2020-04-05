@@ -78,12 +78,14 @@ const displayList = (arrayList) => {
     const favoriteToggle = setNewElement("div")
     favoriteToggle.setAttribute("class", "favorite-toggle")
     favoriteToggle.setAttribute("onclick", "iconSwitcher(this)")
+    // still looking a way to make this a function
     todo.favorite
       ? (favoriteToggle.innerHTML = favoriteOn)
       : (favoriteToggle.innerHTML = favoriteOff)
     newListContainer.innerHTML = `<div tabindex="0">${todo.text}</div>`
     newListContainer.prepend(completedToggle)
     newListContainer.append(favoriteToggle)
+    //this too
     if (todo.completed) {
       completedToggle.nextSibling.setAttribute(
         "class",
@@ -131,9 +133,10 @@ const getText = (textBox) => {
 }
 // search: filter by text
 const filterByText = () => {
-  const searchText = this.value
+  const searchText = searchBox.value
   const regexSearch = new RegExp(searchText, "i")
   const todoFiltered = allTodos.filter((todo) => regexSearch.test(todo.text))
+  todoContainer.innerHTML = ""
   displayList(todoFiltered)
 }
 //---------------------------------------------------------------------
@@ -149,4 +152,4 @@ if (localStorage.getItem("allTodosData") !== null) {
 
 // EVENT LISTENER -------------------------------------------------------
 newTodoContainer.addEventListener("click", setNewInputBox)
-searchBox.addEventListener("input", filterByText.bind(searchBox))
+searchBox.addEventListener("input", filterByText)
