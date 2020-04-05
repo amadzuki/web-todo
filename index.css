@@ -30,6 +30,10 @@ nav > img {
   align-self: center;
   padding-right: 0.5em;
 }
+#search-box-todo::placeholder {
+  text-align: right;
+}
+
 main {
   margin: 0.5em;
 }
@@ -69,7 +73,6 @@ main .add-todo::before {
   color: blue;
 }
 
-/* strikethrough */
 .strikethrough {
   text-decoration-line: line-through;
   text-decoration-style: solid;
