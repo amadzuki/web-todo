@@ -28,6 +28,7 @@ class Todo {
 // useful assignment
 const todoContainer = document.getElementById("todo-container")
 const newTodoContainer = document.getElementById("new-todo-container")
+const searchBox = document.getElementById("search-box-todo")
 const favoriteOn = "&#9733;"
 const favoriteOff = "&#9734;"
 const bulletDone = "&#11044;"
@@ -77,7 +78,7 @@ const displayList = (arrayList) => {
     newListContainer.innerHTML = `<div class="todo-text" tabindex="0">${todo.text}</div>`
     newListContainer.prepend(completedToggle)
     newListContainer.append(favoriteToggle)
-    todoContainer.insertBefore(newListContainer, newTodoContainer)
+    todoContainer.append(newListContainer)
   })
 }
 
@@ -96,7 +97,7 @@ const setNewInputBox = function () {
   const newInputElement = setNewElement("div")
   newInputElement.setAttribute("class", "todo-list")
   newInputElement.innerHTML = `${bulletNotDone}<input type="text" onfocusout="getText(this)">`
-  newTodoContainer.before(newInputElement, newTodoContainer)
+  todoContainer.append(newInputElement)
   newInputElement.lastChild.focus()
 }
 
@@ -112,6 +113,13 @@ const getText = (textBox) => {
   textBox.parentNode.remove()
   displayList([newTodo])
 }
+// search: filter by text
+const filterByText = () => {
+  const searchText = this.value
+  const regexSearch = new RegExp(searchText, "i")
+  const todoFiltered = allTodos.filter((todo) => regexSearch.test(todo.text))
+  displayList(todoFiltered)
+}
 //---------------------------------------------------------------------
 
 // INITIATE LIST-----------------------------------------------------------
@@ -125,3 +133,4 @@ if (localStorage.getItem("allTodosData") !== null) {
 
 // EVENT LISTENER -------------------------------------------------------
 newTodoContainer.addEventListener("click", setNewInputBox)
+searchBox.addEventListener("input", filterByText.bind(searchBox))

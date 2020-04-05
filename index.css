@@ -38,7 +38,8 @@ main {
   display: flex;
   flex-direction: column;
 }
-#todo-container > div {
+#todo-container > div,
+#new-todo-container div {
   display: flex;
   justify-content: start;
   border-bottom: 1px solid;
