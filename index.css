@@ -33,6 +33,9 @@ nav > img {
 main {
   margin: 0.5em;
 }
+.list-title {
+  line-height: 2.5em;
+}
 
 #todo-container {
   display: flex;
@@ -64,4 +67,10 @@ main .add-todo::before {
 
 #new-todo-container {
   color: blue;
+}
+
+/* strikethrough */
+.strikethrough {
+  text-decoration-line: line-through;
+  text-decoration-style: solid;
 }

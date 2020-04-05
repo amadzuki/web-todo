@@ -45,9 +45,17 @@ const iconSwitcher = function (currentElement) {
   if (currentElement.className === "completed-toggle") {
     currentTodo.isCompleted()
     saveToStorage()
-    currentTodo.completed
-      ? (currentElement.innerHTML = bulletDone)
-      : (currentElement.innerHTML = bulletNotDone)
+
+    if (currentTodo.completed) {
+      currentElement.nextSibling.setAttribute(
+        "class",
+        "todo-text strikethrough"
+      )
+      currentElement.innerHTML = bulletDone
+    } else {
+      currentElement.nextSibling.setAttribute("class", "todo-text")
+      currentElement.innerHTML = bulletNotDone
+    }
   } else if (currentElement.className === "favorite-toggle") {
     currentTodo.isFavorite()
     saveToStorage()
@@ -66,18 +74,26 @@ const displayList = (arrayList) => {
     const completedToggle = setNewElement("div")
     completedToggle.setAttribute("class", "completed-toggle")
     completedToggle.setAttribute("onclick", "iconSwitcher(this)")
-    todo.completed
-      ? (completedToggle.innerHTML = bulletDone)
-      : (completedToggle.innerHTML = bulletNotDone)
+
     const favoriteToggle = setNewElement("div")
     favoriteToggle.setAttribute("class", "favorite-toggle")
     favoriteToggle.setAttribute("onclick", "iconSwitcher(this)")
     todo.favorite
       ? (favoriteToggle.innerHTML = favoriteOn)
       : (favoriteToggle.innerHTML = favoriteOff)
-    newListContainer.innerHTML = `<div class="todo-text" tabindex="0">${todo.text}</div>`
+    newListContainer.innerHTML = `<div tabindex="0">${todo.text}</div>`
     newListContainer.prepend(completedToggle)
     newListContainer.append(favoriteToggle)
+    if (todo.completed) {
+      completedToggle.nextSibling.setAttribute(
+        "class",
+        "todo-text strikethrough"
+      )
+      completedToggle.innerHTML = bulletDone
+    } else {
+      completedToggle.nextSibling.setAttribute("class", "todo-text")
+      completedToggle.innerHTML = bulletNotDone
+    }
     todoContainer.append(newListContainer)
   })
 }
