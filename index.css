@@ -30,6 +30,7 @@ nav > img {
   align-self: center;
   padding-right: 0.5em;
 }
+
 #search-box-todo::placeholder {
   text-align: right;
 }
