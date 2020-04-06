@@ -29,6 +29,10 @@ const todoContainer = document.getElementById("todo-container")
 const newTodoContainer = document.getElementById("new-todo-container")
 const searchBox = document.getElementById("search-box-todo")
 const hideMenuButton = document.getElementById("hide-menu")
+const sideMenuTodoText = document.getElementById("detail-todo-text")
+const sideMenuTodoCompleted = document.getElementById("detail-todo-completed")
+const sideMenuTodoFavorite = document.getElementById("detail-todo-favorite")
+const sideMenuTodoDueDate = document.getElementById("detail-todo-duedate")
 const favoriteOn = "&#9733;"
 const favoriteOff = "&#9734;"
 const bulletDone = "&#11044;"
@@ -147,9 +151,16 @@ const filterByText = () => {
 const showDetailTodo = function () {
   const todoID = this.dataset.id
   const selectedTodo = allTodos.find((todo) => todo.id == todoID)
+  sideMenuTodoText.innerText = selectedTodo.text
+  sideMenuTodoCompleted.innerText = selectedTodo.completed
+    ? "It's completed"
+    : "You haven't cleared it yet"
+  sideMenuTodoFavorite.innerText = selectedTodo.favorite
+    ? "Important task"
+    : "Not-so-important task"
+  sideMenuTodoDueDate.innerText = "//trying to use moment.js"
   document.getElementById("side-menu").style.left = "70vw"
   document.body.style.backgroundColor = "rgba(0,0,0,0.3)"
-  return selectedTodo
 }
 
 const closeDetailTodo = () => {
