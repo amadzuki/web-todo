@@ -24,15 +24,17 @@ class Todo {
   }
 }
 
-// FUNCTIONS ----------------------------------------------------------
 // useful assignment
 const todoContainer = document.getElementById("todo-container")
 const newTodoContainer = document.getElementById("new-todo-container")
 const searchBox = document.getElementById("search-box-todo")
+const hideMenuButton = document.getElementById("hide-menu")
 const favoriteOn = "&#9733;"
 const favoriteOff = "&#9734;"
 const bulletDone = "&#11044;"
 const bulletNotDone = "&#9711;"
+
+// FUNCTIONS ----------------------------------------------------------
 
 const setNewElement = (tagName) => document.createElement(tagName)
 const saveToStorage = () => {
@@ -78,7 +80,7 @@ const displayList = (arrayList) => {
     const favoriteToggle = setNewElement("div")
     favoriteToggle.setAttribute("class", "favorite-toggle")
     favoriteToggle.setAttribute("onclick", "iconSwitcher(this)")
-    // still looking a way to make this a function
+    // still looking a way to make this into a function
     todo.favorite
       ? (favoriteToggle.innerHTML = favoriteOn)
       : (favoriteToggle.innerHTML = favoriteOff)
@@ -96,6 +98,7 @@ const displayList = (arrayList) => {
       completedToggle.nextSibling.setAttribute("class", "todo-text")
       completedToggle.innerHTML = bulletNotDone
     }
+    newListContainer.addEventListener("click", showDetailTodo)
     todoContainer.append(newListContainer)
   })
 }
@@ -139,6 +142,22 @@ const filterByText = () => {
   todoContainer.innerHTML = ""
   displayList(todoFiltered)
 }
+
+// show metadata todo
+const showDetailTodo = function () {
+  const todoID = this.dataset.id
+  const selectedTodo = allTodos.find((todo) => todo.id == todoID)
+  document.getElementById("side-menu").style.left = "70vw"
+  document.body.style.backgroundColor = "rgba(0,0,0,0.3)"
+  return selectedTodo
+}
+
+const closeDetailTodo = () => {
+  document.getElementById("side-menu").style.left = "100vw"
+  document.body.style.backgroundColor = "#fff"
+}
+
+// remove one task
 //---------------------------------------------------------------------
 
 // INITIATE LIST-----------------------------------------------------------
@@ -153,3 +172,4 @@ if (localStorage.getItem("allTodosData") !== null) {
 // EVENT LISTENER -------------------------------------------------------
 newTodoContainer.addEventListener("click", setNewInputBox)
 searchBox.addEventListener("input", filterByText)
+hideMenuButton.addEventListener("click", closeDetailTodo)

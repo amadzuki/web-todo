@@ -37,6 +37,7 @@ nav > img {
 
 main {
   margin: 0.5em;
+  transition: margin-left 0.5s;
 }
 .list-title {
   line-height: 2.5em;
@@ -77,4 +78,33 @@ main .add-todo::before {
 .strikethrough {
   text-decoration-line: line-through;
   text-decoration-style: solid;
+}
+
+/* side menu for todo metadata */
+.side-menu {
+  height: 100vh;
+  width: 30vw;
+  top: 0;
+  left: 100vw;
+  z-index: 1;
+  position: fixed;
+  background-color: rgba(2, 10, 56, 0.431);
+  /* overflow-x: hidden; */
+  transition: 0.5s;
+  padding-top: 2em;
+  padding-left: 0.7em;
+}
+
+.side-menu > div {
+  white-space: nowrap;
+  padding: 1em;
+  color: #ddd;
+  transition: 0.3s;
+}
+.side-menu > div:hover {
+  background-color: #666;
+}
+
+.side-menu .close-menu-button {
+  font-size: xx-large;
 }
