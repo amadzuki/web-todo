@@ -88,7 +88,11 @@ const displayList = (arrayList) => {
     todo.favorite
       ? (favoriteToggle.innerHTML = favoriteOn)
       : (favoriteToggle.innerHTML = favoriteOff)
-    newListContainer.innerHTML = `<div tabindex="0">${todo.text}</div>`
+    const textTodo = setNewElement("div")
+    textTodo.setAttribute("tabindex", "0")
+    textTodo.addEventListener("click", showDetailTodo)
+    textTodo.innerHTML = todo.text
+    newListContainer.append(textTodo)
     newListContainer.prepend(completedToggle)
     newListContainer.append(favoriteToggle)
     //this too
@@ -102,7 +106,6 @@ const displayList = (arrayList) => {
       completedToggle.nextSibling.setAttribute("class", "todo-text")
       completedToggle.innerHTML = bulletNotDone
     }
-    newListContainer.addEventListener("click", showDetailTodo)
     todoContainer.append(newListContainer)
   })
 }
@@ -149,7 +152,7 @@ const filterByText = () => {
 
 // show metadata todo
 const showDetailTodo = function () {
-  const todoID = this.dataset.id
+  const todoID = this.parentNode.dataset.id
   const selectedTodo = allTodos.find((todo) => todo.id == todoID)
   sideMenuTodoText.innerText = selectedTodo.text
   sideMenuTodoCompleted.innerText = selectedTodo.completed
