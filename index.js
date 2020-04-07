@@ -163,12 +163,12 @@ const showDetailTodo = function () {
     : "Not-so-important task"
   sideMenuTodoDueDate.innerText = "//trying to use moment.js"
   document.getElementById("side-menu").style.left = "70vw"
-  document.body.style.backgroundColor = "rgba(0,0,0,0.3)"
+  document.body.style.backgroundColor = "#333"
 }
 
 const closeDetailTodo = () => {
   document.getElementById("side-menu").style.left = "100vw"
-  document.body.style.backgroundColor = "#fff"
+  document.body.style.backgroundColor = " #1f1c1e"
 }
 
 // remove one task

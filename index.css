@@ -4,17 +4,22 @@
   padding: 0;
   font-family: "Roboto Slab", serif;
 }
+html {
+  color: #ddd;
+}
+body {
+  background-color: #272323;
+}
 
 nav {
   display: flex;
-  background-color: rgb(0, 191, 255);
-  border-bottom: 2px solid;
-  box-shadow: 0 3px 5px;
+  background-color: #272222;
+  box-shadow: 0 0.5rem 0.5rem hsla(0, 0%, 0%, 0.7);
 }
 nav > img {
   margin: 0.5em;
   height: 1.85em;
-  filter: drop-shadow(0 0 1em white);
+  filter: drop-shadow(0 0 0.13em white);
 }
 
 .app-name {
@@ -22,7 +27,7 @@ nav > img {
   font-weight: bold;
   margin: 0.5em 1em;
   color: aliceblue;
-  text-shadow: 1px 1px 3px black;
+  text-shadow: 0.1px 0.1px 3px white;
   flex: auto;
   white-space: nowrap;
 }
@@ -89,10 +94,8 @@ main .add-todo::before {
   z-index: 1;
   position: fixed;
   background-color: rgba(2, 10, 56, 0.431);
-  /* overflow-x: hidden; */
   transition: 0.5s;
   padding-top: 2em;
-  padding-left: 0.7em;
 }
 
 .side-menu > div {
@@ -107,4 +110,12 @@ main .add-todo::before {
 
 .side-menu .close-menu-button {
   font-size: xx-large;
+  width: fit-content;
+  height: fit-content;
+  padding-left: 0.4em;
+  cursor: pointer;
+}
+
+.side-menu .close-menu-button:hover {
+  color: blue;
 }
