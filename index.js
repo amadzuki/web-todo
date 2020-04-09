@@ -129,12 +129,6 @@ const setNewInputBox = function () {
   const newInputElement = setNewElement("input")
   newInputDiv.append(newInputElement)
   newInputElement.addEventListener("focusout", getText)
-  newInputElement.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-      getText.bind(newInputElement)()
-      setNewInputBox()
-    }
-  })
   todoContainer.append(newInputDiv)
   newInputElement.focus()
 }

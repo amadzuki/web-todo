@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "moment": "^2.24.0"
+  },
+  "name": "web-todo",
+  "version": "1.0.0",
+  "description": "Microsoft todo inspired web app",
+  "main": "index.js",
+  "repository": "git@github.com:amadzuki/web-todo.git",
+  "author": "Ahmad Marzuki <ahmadmarzuki7777@gmail.com>",
+  "license": "MIT"
+}
