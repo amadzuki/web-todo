@@ -24,7 +24,7 @@ class Todo {
   }
 }
 
-// useful assignment
+// assignments
 const todoContainer = document.getElementById("todo-container")
 const newTodoContainer = document.getElementById("new-todo-container")
 const searchBox = document.getElementById("search-box-todo")
@@ -33,6 +33,7 @@ const sideMenuTodoText = document.getElementById("detail-todo-text")
 const sideMenuTodoCompleted = document.getElementById("detail-todo-completed")
 const sideMenuTodoFavorite = document.getElementById("detail-todo-favorite")
 const sideMenuTodoDueDate = document.getElementById("detail-todo-duedate")
+const sideMenuTodoRemove = document.getElementById("detail-remove-todo")
 const favoriteOn = "&#9733;"
 const favoriteOff = "&#9734;"
 const bulletDone = "&#11044;"
@@ -122,23 +123,32 @@ const newID = () => {
 }
 
 const setNewInputBox = function () {
-  const newInputElement = setNewElement("div")
-  newInputElement.setAttribute("class", "todo-list")
-  newInputElement.innerHTML = `${bulletNotDone}<input type="text" onfocusout="getText(this)">`
-  todoContainer.append(newInputElement)
-  newInputElement.lastChild.focus()
+  const newInputDiv = setNewElement("div")
+  newInputDiv.setAttribute("class", "todo-list")
+  newInputDiv.innerHTML = bulletNotDone
+  const newInputElement = setNewElement("input")
+  newInputDiv.append(newInputElement)
+  newInputElement.addEventListener("focusout", getText)
+  newInputElement.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      getText.bind(newInputElement)()
+      setNewInputBox()
+    }
+  })
+  todoContainer.append(newInputDiv)
+  newInputElement.focus()
 }
 
-const getText = (textBox) => {
-  if (textBox.value === "") {
-    return textBox.parentNode.remove()
+const getText = function () {
+  if (this.value === "") {
+    return this.parentNode.remove()
   }
   const idValue = newID()
-  const newTodo = { id: idValue, text: textBox.value }
+  const newTodo = { id: idValue, text: this.value }
   allTodos.push(new Todo(newTodo))
-  textBox.parentNode.dataset.id = idValue
+  this.parentNode.dataset.id = idValue
   saveToStorage()
-  textBox.parentNode.remove()
+  this.parentNode.remove()
   displayList([newTodo])
 }
 // search: filter by text

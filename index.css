@@ -59,6 +59,9 @@ main {
   border-bottom: 1px solid;
   padding: 0.3em 0;
 }
+#todo-container div input {
+  margin-left: 1em;
+}
 
 .favorite-toggle:hover,
 .completed-toggle:hover {
@@ -93,7 +96,7 @@ main .add-todo::before {
   left: 100vw;
   z-index: 1;
   position: fixed;
-  background-color: rgba(2, 10, 56, 0.431);
+  background-color: rgba(8, 16, 58, 0.94);
   transition: 0.5s;
   padding-top: 2em;
 }
