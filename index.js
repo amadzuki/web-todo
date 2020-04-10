@@ -34,12 +34,17 @@ const sideMenuTodoCompleted = document.getElementById("detail-todo-completed")
 const sideMenuTodoFavorite = document.getElementById("detail-todo-favorite")
 const sideMenuTodoDueDate = document.getElementById("detail-todo-duedate")
 const sideMenuTodoRemove = document.getElementById("detail-remove-todo")
+const dateToday = document.getElementById("time-today")
+var currentID = null
 const favoriteOn = "&#9733;"
 const favoriteOff = "&#9734;"
 const bulletDone = "&#11044;"
 const bulletNotDone = "&#9711;"
 
 // FUNCTIONS ----------------------------------------------------------
+
+// display today's date
+dateToday.innerHTML = moment().format("MMMM Do YYYY")
 
 const setNewElement = (tagName) => document.createElement(tagName)
 const saveToStorage = () => {
@@ -156,8 +161,8 @@ const filterByText = () => {
 
 // show metadata todo
 const showDetailTodo = function () {
-  const todoID = this.parentNode.dataset.id
-  const selectedTodo = allTodos.find((todo) => todo.id == todoID)
+  currentID = this.parentNode.dataset.id
+  const selectedTodo = allTodos.find((todo) => todo.id == currentID)
   sideMenuTodoText.innerText = selectedTodo.text
   sideMenuTodoCompleted.innerText = selectedTodo.completed
     ? "It's completed"
@@ -166,6 +171,7 @@ const showDetailTodo = function () {
     ? "Important task"
     : "Not-so-important task"
   sideMenuTodoDueDate.innerText = "//trying to use moment.js"
+  sideMenuTodoRemove.addEventListener("click", removeTodo)
   document.getElementById("side-menu").style.left = "70vw"
   document.body.style.backgroundColor = "#333"
 }
@@ -175,7 +181,16 @@ const closeDetailTodo = () => {
   document.body.style.backgroundColor = " #1f1c1e"
 }
 
-// remove one task
+// remove single todo
+const removeTodo = () => {
+  const todoIndex = allTodos.findIndex((todo) => todo.id == currentID)
+  allTodos.splice(todoIndex, 1)
+  closeDetailTodo()
+  todoContainer.innerHTML = ""
+  displayList(allTodos)
+  saveToStorage()
+  currentID = null
+}
 //---------------------------------------------------------------------
 
 // INITIATE LIST-----------------------------------------------------------

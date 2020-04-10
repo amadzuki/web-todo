@@ -4,10 +4,9 @@
   padding: 0;
   font-family: "Roboto Slab", serif;
 }
-html {
-  color: #ddd;
-}
+
 body {
+  color: #ddd;
   background-color: #272323;
 }
 
@@ -45,7 +44,11 @@ main {
   transition: margin-left 0.5s;
 }
 .list-title {
-  line-height: 2.5em;
+  padding-top: 0.5em;
+}
+#time-today {
+  padding-bottom: 1.5em;
+  font-size: small;
 }
 
 #todo-container {
@@ -106,6 +109,7 @@ main .add-todo::before {
   padding: 1em;
   color: #ddd;
   transition: 0.3s;
+  cursor: pointer;
 }
 .side-menu > div:hover {
   background-color: #666;
