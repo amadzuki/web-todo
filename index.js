@@ -183,7 +183,7 @@ const showDetailTodo = function () {
   sideMenuTodoFavorite.innerText = selectedTodo.favorite
     ? "Important task"
     : "Not-so-important task"
-  sideMenuTodoDueDate.innerText = "//trying to use moment.js"
+  sideMenuTodoDueDate.addEventListener("click", setDueDate)
   sideMenuTodoRemove.addEventListener("click", removeTodo)
   document.getElementById("side-menu").style.left = "70vw"
   document.body.style.backgroundColor = "#333"
@@ -193,7 +193,7 @@ const closeDetailTodo = () => {
   document.getElementById("side-menu").style.left = "100vw"
   document.body.style.backgroundColor = " #1f1c1e"
 }
-// edit todo text --> change div into input box, eventlistener for blur, eventlistener on enter
+
 const editTodoText = function () {
   const formerText = sideMenuTodoText.innerText
   const inputNewTodoText = setNewElement("input")
@@ -217,13 +217,28 @@ const editTodoText = function () {
 }
 // remove single todo
 const removeTodo = () => {
-  const todoIndex = allTodos.findIndex((todo) => todo.id == currentID)
-  allTodos.splice(todoIndex, 1)
+  allTodos.splice(currentIndex, 1)
   closeDetailTodo()
   todoContainer.innerHTML = ""
   displayList(allTodos)
   saveToStorage()
   currentID = null
+}
+//set due date
+const setDueDate = () => {
+  const textDueDate = document.getElementById("text-due-date")
+  const dateInputContainer = document.getElementById("due-date-input-block")
+  dateInputContainer.style.display = "block"
+  const dueDateInput = document.getElementById("due-date-input")
+  dueDateInput.addEventListener("focusout", function () {
+    if (this.value == null || this.value == "") {
+      dateInputContainer.style.display = "none"
+    } else {
+      allTodos[currentIndex].setDueDate(this.value)
+      textDueDate.innerHTML = `Finish it ${moment(this.value).fromNow()}`
+      dateInputContainer.style.display = "none"
+    }
+  })
 }
 //---------------------------------------------------------------------
 

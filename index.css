@@ -126,3 +126,17 @@ main .add-todo::before {
 .side-menu .close-menu-button:hover {
   color: blue;
 }
+.side-menu #detail-todo-duedate {
+  position: relative;
+}
+#due-date-input-block {
+  position: absolute;
+  top: 1em;
+  z-index: 2;
+  display: none;
+}
+#text-due-date {
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
