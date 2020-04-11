@@ -1,3 +1,5 @@
+"use strict"
+
 class Todo {
   constructor(objectConstructor) {
     Object.assign(this, objectConstructor)
@@ -35,7 +37,7 @@ const sideMenuTodoFavorite = document.getElementById("detail-todo-favorite")
 const sideMenuTodoDueDate = document.getElementById("detail-todo-duedate")
 const sideMenuTodoRemove = document.getElementById("detail-remove-todo")
 const dateToday = document.getElementById("time-today")
-var currentID = null
+var currentIndex = null
 const favoriteOn = "&#9733;"
 const favoriteOff = "&#9734;"
 const bulletDone = "&#11044;"
@@ -119,7 +121,7 @@ const displayList = (arrayList) => {
 // create latest ID for new todo object
 const newID = () => {
   if (allTodos.length === 0) {
-    firstID = 1
+    const firstID = 1
     return firstID
   }
   const lastID = allTodos.reduce((max, todo) => Math.max(max, todo.id), 0)
@@ -134,6 +136,15 @@ const setNewInputBox = function () {
   const newInputElement = setNewElement("input")
   newInputDiv.append(newInputElement)
   newInputElement.addEventListener("focusout", getText)
+  newInputElement.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      try {
+        this.parentNode.remove()
+      } catch (error) {
+        setNewInputBox()
+      }
+    }
+  })
   todoContainer.append(newInputDiv)
   newInputElement.focus()
 }
@@ -161,9 +172,11 @@ const filterByText = () => {
 
 // show metadata todo
 const showDetailTodo = function () {
-  currentID = this.parentNode.dataset.id
-  const selectedTodo = allTodos.find((todo) => todo.id == currentID)
+  const currentID = this.parentNode.dataset.id
+  currentIndex = allTodos.findIndex((todo) => todo.id == currentID)
+  const selectedTodo = allTodos[currentIndex]
   sideMenuTodoText.innerText = selectedTodo.text
+  sideMenuTodoText.addEventListener("click", editTodoText)
   sideMenuTodoCompleted.innerText = selectedTodo.completed
     ? "It's completed"
     : "You haven't cleared it yet"
@@ -180,7 +193,28 @@ const closeDetailTodo = () => {
   document.getElementById("side-menu").style.left = "100vw"
   document.body.style.backgroundColor = " #1f1c1e"
 }
-
+// edit todo text --> change div into input box, eventlistener for blur, eventlistener on enter
+const editTodoText = function () {
+  const formerText = sideMenuTodoText.innerText
+  const inputNewTodoText = setNewElement("input")
+  inputNewTodoText.value = formerText
+  sideMenuTodoText.innerHTML = ""
+  sideMenuTodoText.append(inputNewTodoText)
+  inputNewTodoText.focus()
+  inputNewTodoText.addEventListener("blur", function () {
+    const editedText = this.value
+    allTodos[currentIndex].setNewText(editedText)
+    sideMenuTodoText.innerText = editedText
+  })
+  // this one is pretty counter intuitive, make sure to comprehend the blur event
+  inputNewTodoText.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      try {
+        sideMenuTodoText.innerText = "error"
+      } catch (error) {}
+    }
+  })
+}
 // remove single todo
 const removeTodo = () => {
   const todoIndex = allTodos.findIndex((todo) => todo.id == currentID)
